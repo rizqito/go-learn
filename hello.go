@@ -11,7 +11,7 @@ func main() {
 	fmt.Println("-----tipe data variabel-----")
 	var name string //string tipe data karakter
 	var age int     //integer tipe data numerik
-	var isPredicate bool
+	var isPredicate bool //tipe data boolean
 	name = "qito"
 	age = 22
 	isPredicate = false
