@@ -1,3 +1,3 @@
-module test-golang
+module go-learn
 
-go 1.16
+go 1.13
