@@ -1,11 +1,11 @@
 //map pada golang itu object
 
-package latihan
+package helper
 
 import "fmt"
 
-func main(){
-	ages := make(map[string]int)  // deklarasi variabel map menggunakan short hand
+func Map() {
+	ages := make(map[string]int) // deklarasi variabel map menggunakan short hand
 
 	// var ages map[string]int //deklarasi variabel biasa
 	// ages = map[string]int{}
@@ -13,10 +13,10 @@ func main(){
 	ages["ani"] = 24
 	ages["budi"] = 25
 	ages["agung"] = 22
-	
+
 	fmt.Println(ages)
 
-	for key, value := range ages{ // foreach data
+	for key, value := range ages { // foreach data
 		fmt.Println("Key : ", key, "Value : ", value)
 	}
 }

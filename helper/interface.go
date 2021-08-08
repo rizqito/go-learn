@@ -1,5 +1,5 @@
 //interface = kumpulan method
-package latihan
+package helper
 
 import "fmt"
 
@@ -68,7 +68,7 @@ func hitungLingkaran(l Lingkaran) {
 	fmt.Println("LUas Lingkaran : ", l.Luas())
 }
 
-func main() {
+func Interface() {
 	fmt.Println("----------Persegi---------")
 	hitungPersegi(Persegi{Sisi: 6})
 

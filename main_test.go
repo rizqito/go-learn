@@ -1,11 +1,14 @@
 // untuk unit testing
 package main
 
-import "testing"
+import (
+	"go-learn/helper"
+	"testing"
+)
 
 var (
-	persegi      Persegi = Persegi{S: 4}
-	luasExpected float64 = 16
+	persegi      helper.Persegi = helper.Persegi{Sisi: 4}
+	luasExpected float64        = 16
 )
 
 func TestLuasPersegi(t *testing.T) {

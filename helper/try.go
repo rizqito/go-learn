@@ -1,14 +1,14 @@
-package latihan
+package helper
 
 import (
 	"fmt"
 	"os" //untuk input input kali ya
 )
 
-func main(){
+func Try() {
 	var s string
 	sep := ""
-	for _, arg := range os.Args[1:]{
+	for _, arg := range os.Args[1:] {
 		s += sep + arg
 		sep = " "
 	}
