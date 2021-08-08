@@ -1,5 +1,5 @@
 //interface = kumpulan method
-package main
+package latihan
 
 import "fmt"
 

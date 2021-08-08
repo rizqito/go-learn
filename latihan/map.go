@@ -1,6 +1,6 @@
 //map pada golang itu object
 
-package main
+package latihan
 
 import "fmt"
 
