@@ -42,7 +42,7 @@ func BelajarMethod() {
 	persegi := Persegi1{6}
 	fmt.Println(persegi.Luas())
 
-	// buar struct persegi panjang
+	// buat struct persegi panjang
 	// isi struct nya dengan atribut persegi panjang
 	// buat method with receiver untuk menghitung luas sama keliling
 	// call method with receiver nya dengan print

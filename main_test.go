@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	persegi      helper.Persegi = helper.Persegi{Sisi: 4}
+	persegi      helper.Persegi = helper.Persegi{Sisi: 4} // objek persegi dari folder helper/interface.go
 	luasExpected float64        = 16
 )
 

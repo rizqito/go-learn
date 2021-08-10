@@ -43,4 +43,9 @@ func ArraySlices() {
 
 	fmt.Println(jml)
 	fmt.Println("jumlah data ", len(jml))
+
+	fmt.Println("----array-slices----")
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+	var s []int = primes[3:5]
+	fmt.Println(s)
 }

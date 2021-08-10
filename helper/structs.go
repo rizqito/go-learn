@@ -1,3 +1,5 @@
+// structs adalah objek
+
 package helper
 
 import "fmt"
