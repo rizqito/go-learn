@@ -12,5 +12,5 @@ func main() {
 	// helper.SayHello("Rizqi")
 
 	fmt.Println("-----Hands On Array-------")
-	helper.HandsOnArray()
+	helper.ArraySlices()
 }

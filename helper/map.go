@@ -19,4 +19,6 @@ func Map() {
 	for key, value := range ages { // foreach data
 		fmt.Println("Key : ", key, "Value : ", value)
 	}
+
+	buat variabel m dengan map key: string dan value: int
 }
