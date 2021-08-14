@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-learn/helper"
+	"go-learn/goRoutine"
 )
 
 func main() {
@@ -11,6 +11,8 @@ func main() {
 	// fmt.Println("-----Hello World-------")
 	// helper.SayHello("Rizqi")
 
-	fmt.Println("-----Hands On Map-------")
-	helper.Map()
+	fmt.Println("-----Go Routine HandsOn-------")
+	goRoutine.HandsOn()
+	// fmt.Println("-----Go Routine HandsOn-------")
+	// goRoutine.HandsOn2()
 }
