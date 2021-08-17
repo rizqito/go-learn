@@ -12,7 +12,5 @@ func main() {
 	// helper.SayHello("Rizqi")
 
 	fmt.Println("-----Go Routine HandsOn-------")
-	goRoutine.HandsOn()
-	// fmt.Println("-----Go Routine HandsOn-------")
-	// goRoutine.HandsOn2()
+	goRoutine.HandsOn4()
 }
