@@ -9,3 +9,11 @@ type User struct {
 	Name    string
 	Address string
 }
+
+type Product struct {
+	gorm.Model
+	ID       uint
+	Name     string
+	Qty      int32
+	Supplier string
+}

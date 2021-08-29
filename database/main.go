@@ -1,6 +1,13 @@
 package main
 
+import "belajar-golang/database/handler"
+
 func main() {
-	// handler.InsertAnimal()
-	// handler.GetAnimal()
+	// config.DatabaseInit()
+	// handler.MigrateProduct()
+	// handler.GetEmployee()
+	// handler.UpdateEmployee()
+	// handler.DeleteEmployee()
+	// handler.InsertProduct()
+	handler.UpdateProduct()
 }

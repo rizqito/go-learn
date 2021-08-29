@@ -7,97 +7,152 @@ import (
 	"fmt"
 )
 
-func InsertAnimal() {
+func InsertEmployee() {
 	db := config.DatabaseInit()
 	defer db.Close()
 
 	ctx := context.Background()
 
-	_, err := db.ExecContext(ctx, "INSERT INTO animal(name) VALUES('Anggora')")
+	name := "Riki"
+	age := 65
+	address := "Jakarta"
+	query := "INSERT INTO employee(name,address,age) VALUES(?,?,?)"
+
+	_, err := db.ExecContext(ctx, query, name, age, address)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println("Success Insert Data To Database")
 }
 
-func GetAnimal() {
+func GetEmployee() {
 	db := config.DatabaseInit()
 	defer db.Close()
 
 	ctx := context.Background()
 
-	query := "SELECT * FROM animal"
+	query := "SELECT * FROM employee"
 	rows, err := db.QueryContext(ctx, query)
 	if err != nil {
 		panic(err)
 	}
 
 	for rows.Next() {
-		var id, name string
-		err := rows.Scan(&id, &name)
+		var id, name, address, age string
+		err := rows.Scan(&id, &name, &address, &age)
 		if err != nil {
 			panic(err)
 		}
 		fmt.Println("Id : ", id)
 		fmt.Println("Nama : ", name)
+		fmt.Println("Address : ", address)
+		fmt.Println("Age : ", age)
 	}
 
 	defer rows.Close()
 }
 
-func updateAnimal() {
+func UpdateEmployee() {
+	db := config.DatabaseInit()
+	defer db.Close()
 
+	ctx := context.Background()
+
+	id := 1
+	name := "Riki"
+	age := 65
+	address := "Jakarta"
+
+	script := "UPDATE employee SET name = ?, age = ?, address = ? WHERE id = ?"
+	_, err := db.ExecContext(ctx, script, name, age, address, id)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Success update new employee")
 }
 
-func InsertUser() {
+func DeleteEmployee() {
+	db := config.DatabaseInit()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	id := 1
+
+	script := "DELETE FROM employee WHERE id = ?"
+	_, err := db.ExecContext(ctx, script, id)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Success delete employee")
+}
+
+//* =====================GORM Handler=====================
+
+func MigrateProduct() {
 	db, err := config.GormDatabaseConn()
 
 	if err != nil {
 		fmt.Errorf("Error connect db", err.Error())
 	}
 
-	user := model.User{Name: "Sandy", Email: "sandy@yahoo.com", Address: "Houston"}
-
-	db.Create(&user)
-
-	fmt.Println("Insert user successfully")
+	db.Set("gorm:products", "ENGINE=InnoDB").AutoMigrate(&model.Product{})
 }
 
-func SelectUser() {
+func InsertProduct() {
 	db, err := config.GormDatabaseConn()
 
 	if err != nil {
 		fmt.Errorf("Error connect db", err.Error())
 	}
 
-	var user model.User
+	product := model.Product{Name: "Ultramilk", Qty: 25, Supplier: "PT. INdofood"}
 
-	result, err := db.Model(&model.User{}).Rows()
+	db.Create(&product)
+
+	fmt.Println("Insert product successfully")
+}
+
+func SelectProduct() {
+	db, err := config.GormDatabaseConn()
+
+	if err != nil {
+		fmt.Errorf("Error connect db", err.Error())
+	}
+
+	var product model.Product
+
+	result, err := db.Model(&model.Product{}).Rows()
 
 	if err != nil {
 		fmt.Errorf("Cannot scan row", err.Error())
 	}
 
 	for result.Next() {
-		db.ScanRows(result, &user)
-		fmt.Println(user.Name)
-		fmt.Println(user.Email)
+		db.ScanRows(result, &product)
+		fmt.Println(product.Name)
+		fmt.Println(product.Qty)
+		fmt.Println(product.Supplier)
 	}
 
 }
 
-func UpdateUser() {
+func UpdateProduct() {
 	db, err := config.GormDatabaseConn()
 
 	if err != nil {
 		fmt.Errorf("Error connect db", err.Error())
 	}
 
-	var user model.User
+	var product model.Product
 
-	db.Model(&user).Where("id = ?", 1).Update("name", "Aulia")
+	db.Model(&product).Where("id = ?", 1).Update("name", "Lifeboy")
 
-	fmt.Println("Update user sucess")
+	fmt.Println("Update product sucess")
 }
 
 func DeleteUser() {
@@ -107,9 +162,9 @@ func DeleteUser() {
 		fmt.Errorf("Error connect db", err.Error())
 	}
 
-	var user model.User
+	var product model.Product
 
-	db.Where("id = ?", 1).Delete(&user)
+	db.Where("id = ?", 1).Delete(&product)
 
-	fmt.Println("Delete user sucess")
+	fmt.Println("Delete product sucess")
 }
