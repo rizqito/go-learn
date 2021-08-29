@@ -23,6 +23,7 @@ func main() {
 	*pointerHandsome = "saya cantik"
 	//* get value pointer
 	ganteng := *pointerHandsome
+
 	fmt.Println(ganteng)
 
 	//* method receiver

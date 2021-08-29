@@ -1,10 +1,10 @@
 package handler
 
 import (
+	"belajar-golang/database/config"
+	"belajar-golang/database/model"
 	"context"
 	"fmt"
-	"go-learn/database/config"
-	"go-learn/database/model"
 )
 
 func InsertAnimal() {
@@ -60,7 +60,7 @@ func InsertUser() {
 
 	db.Create(&user)
 
-	fmt.Println("Insert User successfully")
+	fmt.Println("Insert user successfully")
 }
 
 func SelectUser() {
@@ -70,7 +70,46 @@ func SelectUser() {
 		fmt.Errorf("Error connect db", err.Error())
 	}
 
-	var users []model.User
+	var user model.User
 
-	result := db.Find(&users)
+	result, err := db.Model(&model.User{}).Rows()
+
+	if err != nil {
+		fmt.Errorf("Cannot scan row", err.Error())
+	}
+
+	for result.Next() {
+		db.ScanRows(result, &user)
+		fmt.Println(user.Name)
+		fmt.Println(user.Email)
+	}
+
+}
+
+func UpdateUser() {
+	db, err := config.GormDatabaseConn()
+
+	if err != nil {
+		fmt.Errorf("Error connect db", err.Error())
+	}
+
+	var user model.User
+
+	db.Model(&user).Where("id = ?", 1).Update("name", "Aulia")
+
+	fmt.Println("Update user sucess")
+}
+
+func DeleteUser() {
+	db, err := config.GormDatabaseConn()
+
+	if err != nil {
+		fmt.Errorf("Error connect db", err.Error())
+	}
+
+	var user model.User
+
+	db.Where("id = ?", 1).Delete(&user)
+
+	fmt.Println("Delete user sucess")
 }

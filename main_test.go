@@ -2,7 +2,7 @@
 package main
 
 import (
-	"go-learn/helper"
+	"belajar-golang/helper"
 	"testing"
 )
 
