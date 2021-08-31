@@ -13,12 +13,9 @@ func InsertEmployee() {
 
 	ctx := context.Background()
 
-	name := "Riki"
-	age := 65
-	address := "Jakarta"
-	query := "INSERT INTO employee(name,address,age) VALUES(?,?,?)"
+	query := "INSERT INTO employee(name,address,age) VALUES('Riki','65','Jakarta')"
 
-	_, err := db.ExecContext(ctx, query, name, age, address)
+	_, err := db.ExecContext(ctx, query)
 	if err != nil {
 		panic(err)
 	}
@@ -39,7 +36,7 @@ func GetEmployee() {
 
 	for rows.Next() {
 		var id, name, address, age string
-		err := rows.Scan(&id, &name, &address, &age)
+		err := rows.Scan(id, name, address, age)
 		if err != nil {
 			panic(err)
 		}
