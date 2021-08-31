@@ -5,7 +5,88 @@ import (
 	"belajar-golang/database/model"
 	"context"
 	"fmt"
+	"strconv"
 )
+
+func LoginUser() {
+	db := config.DatabaseInit()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	username := "admin"
+	password := "admin"
+
+	query := "SELECT username FROM user WHERE username = ? AND password = ? LIMIT 1"
+	rows, err := db.QueryContext(ctx, query, username, password)
+	if err != nil {
+		panic(err)
+	}
+
+	if rows.Next() {
+		var username string
+		err := rows.Scan(&username)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("sukses login ", username)
+	} else {
+		fmt.Println("Gagal login")
+	}
+
+	defer rows.Close()
+}
+
+func LastInsertId() {
+	db := config.DatabaseInit()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	name := "Onii"
+	address := "Semarang"
+	age := 70
+
+	query := "INSERT INTO employee(name,address,age) VALUES(?,?,?)"
+
+	result, err := db.ExecContext(ctx, query, name, address, age)
+	if err != nil {
+		panic(err)
+	}
+	insertId, err := result.LastInsertId()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("success get last data id", insertId)
+}
+
+// input query berkali2 cocok pake prepare
+func InsertPrepare() {
+	db := config.DatabaseInit()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	query := "INSERT INTO employee(name,address,age) VALUES(?,?,?)"
+
+	stmt, err := db.PrepareContext(ctx, query)
+	if err != nil {
+		panic(err)
+	}
+	defer stmt.Close()
+
+	for i := 0; i < 10; i++ {
+		name := "alex" + strconv.Itoa(i) + "@gmail.com"
+		address := "address" + strconv.Itoa(i)
+		age := i
+		result, err := stmt.ExecContext(ctx, name, address, age)
+		if err != nil {
+			panic(err)
+		}
+		lastInsertId, _ := result.LastInsertId()
+		fmt.Println("last id :", lastInsertId)
+	}
+}
 
 func InsertEmployee() {
 	db := config.DatabaseInit()
@@ -13,9 +94,13 @@ func InsertEmployee() {
 
 	ctx := context.Background()
 
-	query := "INSERT INTO employee(name,address,age) VALUES('Riki','Jakarta,'65')"
+	name := "Riki"
+	address := "Jakarta"
+	age := 65
 
-	_, err := db.ExecContext(ctx, query)
+	query := "INSERT INTO employee(name,address,age) VALUES(?,?,?)"
+
+	_, err := db.ExecContext(ctx, query, name, address, age)
 	if err != nil {
 		panic(err)
 	}
@@ -55,8 +140,13 @@ func UpdateEmployee() {
 
 	ctx := context.Background()
 
-	script := "UPDATE employee SET name = 'Alex', address = 'Jarkata', age = '20', WHERE id = '2'"
-	_, err := db.ExecContext(ctx, script)
+	id := 2
+	name := "Alex"
+	address := "Jakarta"
+	age := 20
+
+	script := "UPDATE employee SET name = ?, address = ?, age = ?, WHERE id = ?"
+	_, err := db.ExecContext(ctx, script, name, address, age, id)
 
 	if err != nil {
 		panic(err)

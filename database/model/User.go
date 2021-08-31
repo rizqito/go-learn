@@ -32,3 +32,10 @@ type Shipment struct {
 	OrderId      uint
 	ShipmentDate time.Time
 }
+
+type Employee struct {
+	Id      int
+	Name    string
+	Address string
+	Age     int
+}
