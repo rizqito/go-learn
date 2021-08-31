@@ -13,7 +13,7 @@ func InsertEmployee() {
 
 	ctx := context.Background()
 
-	query := "INSERT INTO employee(name,address,age) VALUES('Riki','65','Jakarta')"
+	query := "INSERT INTO employee(name,address,age) VALUES('Riki','Jakarta,'65')"
 
 	_, err := db.ExecContext(ctx, query)
 	if err != nil {
@@ -36,7 +36,7 @@ func GetEmployee() {
 
 	for rows.Next() {
 		var id, name, address, age string
-		err := rows.Scan(id, name, address, age)
+		err := rows.Scan(&id, &name, &address, &age)
 		if err != nil {
 			panic(err)
 		}
@@ -55,13 +55,8 @@ func UpdateEmployee() {
 
 	ctx := context.Background()
 
-	id := 1
-	name := "Riki"
-	age := 65
-	address := "Jakarta"
-
-	script := "UPDATE employee SET name = ?, age = ?, address = ? WHERE id = ?"
-	_, err := db.ExecContext(ctx, script, name, age, address, id)
+	script := "UPDATE employee SET name = 'Alex', address = 'Jarkata', age = '20', WHERE id = '2'"
+	_, err := db.ExecContext(ctx, script)
 
 	if err != nil {
 		panic(err)
@@ -97,7 +92,12 @@ func MigrateProduct() {
 		fmt.Errorf("Error connect db", err.Error())
 	}
 
-	db.Set("gorm:products", "ENGINE=InnoDB").AutoMigrate(&model.Product{})
+	// db.Set("gorm:products", "ENGINE=InnoDB").AutoMigrate(&model.Product{})
+	db.AutoMigrate(
+		&model.Customer{},
+		&model.Order{},
+		&model.Shipment{},
+	)
 }
 
 func InsertProduct() {
