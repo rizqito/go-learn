@@ -1,0 +1,1 @@
+channel = mekanisme pertukaran data(bisa mengirim dan menerima data)

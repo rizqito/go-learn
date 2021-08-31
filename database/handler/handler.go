@@ -36,7 +36,7 @@ func GetEmployee() {
 
 	for rows.Next() {
 		var id, name, address, age string
-		err := rows.Scan(id, name, address, age)
+		err := rows.Scan(&id, &name, &address, &age)
 		if err != nil {
 			panic(err)
 		}
